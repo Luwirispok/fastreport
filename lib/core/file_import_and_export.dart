@@ -23,7 +23,7 @@ class FileImportAndExport {
       var fileBytes = file.readAsBytesSync();
       // log(fileBytes.toString());
       String base64 = base64Encode(fileBytes);
-      log(base64);
+      // log(base64);
       return {
         'base64': base64,
         'name': result.files.first.name,
