@@ -12,7 +12,18 @@ class TemplatesRepositoryImpl implements TemplatesRepository {
     );
   }
 
-  createTemplate() {}
+  @override
+  createTemplate(id, name, base64) {
+    print(id);
+    print(name);
+    print(base64);
+    ApiRequest.postApiHelper(
+      Dio(),
+      {"name": '$name.frx', 'content': '$base64'},
+      '/api/rp/v1/Templates/Folder/$id/File',
+    );
+  }
+
   readTemplate() {}
   updateTemplate() {}
   deleteTemplate() {}

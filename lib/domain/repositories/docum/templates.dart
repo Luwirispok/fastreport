@@ -7,7 +7,7 @@ abstract class TemplatesRepository {
   ///Создание шаблона
   ///
   /// /api/rp/v1/Templates/Folder/{id}/File
-  createTemplate() {}
+  createTemplate(String id, Stringname, base64) {}
   readTemplate() {}
   updateTemplate() {}
   deleteTemplate() {}

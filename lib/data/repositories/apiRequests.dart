@@ -11,7 +11,7 @@ class ApiRequest {
     Map body = Map();
     Map<String, dynamic> error = Map();
     const token =
-        'YXBpa2V5Ojk2eGZ6amhuZzZ6aG03Y3RmOTk1NjNhbXhhcTkzdGNxbmVzcTY1d2VncDN5aHp1ajg2Z3k=';
+        'YXBpa2V5OmZ5NDRta3M5aXR0OHI4aXF0ZDU0bzQxcWI0cWlqaDE4cm83YmJzNmk5eG91aHB4OXRmOHk=';
     error['message'] = "Неизвестная ошибка";
     header['Authorization'] = 'Basic $token';
     header['Content-Type'] = 'application/json';
