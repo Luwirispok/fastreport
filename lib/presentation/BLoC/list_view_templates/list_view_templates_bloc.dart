@@ -14,13 +14,19 @@ class ListViewTemplatesBloc
       // TODO: implement event handler
     });
     on<ShowAllTemplatesEvent>((event, emit) async {
-      final id = await GetIdentRepositoryImp().getIdForFolder();
-      final data = await TemplatesRepositoryImpl().getAllTemplates(id['id']);
+      final id = await GetIdentRepositoryImp().getIdForFolder('Templates');
+      await TemplatesRepositoryImpl().getCountTemplates(id['id']).then((value) => countSet(value));
+      final data = await TemplatesRepositoryImpl().getAllTemplates(id['id'], "${count['count']}");
 
       emit(ShowAllTemplatesState(data));
     });
     on<LoadingGetAllTemplatesEvent>((event, emit) {
       emit(LoadingGetAllTemplatesState());
     });
+  }
+  var count;
+
+  countSet(Map<String, dynamic> value) {
+    count = value;
   }
 }

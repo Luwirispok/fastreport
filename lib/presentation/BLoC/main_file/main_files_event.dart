@@ -3,7 +3,9 @@ part of 'main_files_bloc.dart';
 @immutable
 abstract class MainFilesEvent {}
 
-class DocumentsEvent extends MainFilesEvent {}
+class TemplatesEvent extends MainFilesEvent {}
+class ExportsEvent extends MainFilesEvent {}
+class ReportsEvent extends MainFilesEvent {}
 
 class DataEvent extends MainFilesEvent {}
 

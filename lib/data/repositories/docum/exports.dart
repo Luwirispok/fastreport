@@ -2,62 +2,62 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:fastreport/data/repositories/apiRequests.dart';
-import 'package:fastreport/domain/repositories/docum/reports.dart';
+import 'package:fastreport/domain/repositories/docum/exports.dart';
 
-class ReportsRepositoryImpl implements ReportsRepository {
+class ExportsRepositoryImpl implements ExportsRepository {
 
-  Future<Map<String, dynamic>> getCountReports(id) async {
+  Future<Map<String, dynamic>> getCountExports(id) async {
     return await ApiRequest.getApiHelper(
       Dio(),
       {'': ''},
-      '/api/rp/v1/Reports/Folder/$id/CountFolderAndFiles',
+      '/api/rp/v1/Exports/Folder/$id/CountFolderAndFiles',
     );
   }
 
   @override
-  getAllReports(id, take) async {
+  getAllExports(id, take) async {
     return await ApiRequest.getApiHelper(
       Dio(),
       {'': ''},
-      '/api/rp/v1/Reports/Folder/$id/ListFolderAndFiles?take=$take',
+      '/api/rp/v1/Exports/Folder/$id/ListFolderAndFiles?take=$take',
     );
   }
 
   @override
-  createReport(id, name, base64) async {
+  createExport(id, name, base64) async {
     await ApiRequest.postApiHelper(
       Dio(),
       {"name": "$name", "content": "$base64"},
-      '/api/rp/v1/Reports/Folder/$id/File',
+      '/api/rp/v1/Exports/Folder/$id/File',
     );
   }
 
   @override
-  readReport() async {}
+  readExport() async {}
 
   @override
-  updateReport(
+  updateExport(
       String id,
       String name,
       ) async {
     await ApiRequest.putApiHelper(
       dio: Dio(),
-      path: '/api/rp/v1/Reports/File/$id/Rename',
+      path: '/api/rp/v1/Exports/File/$id/Rename',
       data: {"name": "$name.frx"},
     );
   }
 
   @override
-  deleteReport(
+  deleteExport(
       String id,
       ) async {
     await ApiRequest.deleteApiHelper(
       dio: Dio(),
-      path: '/api/rp/v1/Reports/File/$id/ToBin',
+      path: '/api/rp/v1/Exports/File/$id/ToBin',
     );
   }
 
-  exportReport() {}
-  downloadReport() {}
-  readyReportReport() {}
+  exportExport() {}
+  downloadExport() {}
+  readyExportReport() {}
 }

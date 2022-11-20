@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:dio/dio.dart';
 
@@ -25,6 +26,8 @@ class ApiRequest {
     } catch (e) {
       return error;
     }
+    log("$_rootPath$path");
+    log(response.data.toString());
     if (response != null) {
       if (response.statusCode == 404) {
         ///Бронь не найдена
@@ -72,6 +75,8 @@ class ApiRequest {
     } catch (e) {
       return error;
     }
+    log("$_rootPath$path");
+    log(response.data.toString());
     if (response != null) {
       if (response.statusCode == 404) {
         ///Бронь не найдена
@@ -121,6 +126,8 @@ class ApiRequest {
     } catch (e) {
       return error;
     }
+    log("$_rootPath$path");
+    log(response?.data.toString() ?? '');
     if (response != null) {
       if (response.statusCode == 404) {
         ///Бронь не найдена
@@ -164,6 +171,8 @@ class ApiRequest {
     } catch (e) {
       return error;
     }
+    log("$_rootPath$path");
+    log(response?.data.toString() ?? '');
     if (response != null) {
       if (response.statusCode == 404) {
         ///Бронь не найдена

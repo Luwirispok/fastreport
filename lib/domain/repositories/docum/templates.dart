@@ -2,7 +2,7 @@ abstract class TemplatesRepository {
   ///Получение всех шаблонов
   ///
   /// /api/rp/v1/Exports/Folder/{id}/CountFolderAndFiles[?searchPattern&useRegex]
-  getAllTemplates(String id) {}
+  getAllTemplates(String id, String take) {}
 
   ///Создание шаблона
   ///
@@ -20,5 +20,5 @@ abstract class GetIdentRepository {
   ///Получение id Папки
   ///
   /// https://fastreport.cloud/api/rp/v1/Templates/Root
-  getIdForFolder() {}
+  getIdForFolder(String typeFile) {}
 }

@@ -3,7 +3,9 @@ part of 'main_files_bloc.dart';
 @immutable
 abstract class MainFilesState {}
 
-class DocumentsState extends MainFilesState {}
+class TemplatesState extends MainFilesState {}
+class ExportsState extends MainFilesState {}
+class ReportsState extends MainFilesState {}
 
 class DataState extends MainFilesState {}
 

@@ -1,22 +1,22 @@
 import 'dart:async';
-import 'package:fastreport/presentation/BLoC/list_view_templates/list_view_templates_bloc.dart';
+import 'package:fastreport/presentation/BLoC/list_view_reports/list_view_reports_bloc.dart';
 import 'package:fastreport/presentation/main_screen/alert_dialog.dart';
 import 'package:fastreport/presentation/main_screen/alert_dialog_for_templates_four_,methods.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
 
-class DocumentScreen extends StatefulWidget {
-  const DocumentScreen({Key? key}) : super(key: key);
+class ReportsScreen extends StatefulWidget {
+  const ReportsScreen({Key? key}) : super(key: key);
 
   @override
-  State<DocumentScreen> createState() => _DocumentScreenState();
+  State<ReportsScreen> createState() => _ReportsScreenState();
 }
 
-class _DocumentScreenState extends State<DocumentScreen> {
+class _ReportsScreenState extends State<ReportsScreen> {
   @override
   void initState() {
-    context.read<ListViewTemplatesBloc>().add(ShowAllTemplatesEvent());
+    context.read<ListViewReportsBloc>().add(ShowAllReportsEvent());
     super.initState();
   }
 
@@ -30,33 +30,28 @@ class _DocumentScreenState extends State<DocumentScreen> {
           child: Icon(Icons.add),
           elevation: 100,
         ),
-        body: BlocBuilder<ListViewTemplatesBloc, ListViewTemplatesState>(
-            builder: (context, state) {
-          if (state is ShowAllTemplatesState) {
+        body: BlocBuilder<ListViewReportsBloc, ListViewReportsState>(builder: (context, state) {
+          if (state is ShowAllReportsState) {
             return RefreshIndicator(
               onRefresh: () async {
-                context
-                    .read<ListViewTemplatesBloc>()
-                    .add(LoadingGetAllTemplatesEvent());
-                context
-                    .read<ListViewTemplatesBloc>()
-                    .add(ShowAllTemplatesEvent());
+                context.read<ListViewReportsBloc>().add(LoadingGetAllReportsEvent());
+                context.read<ListViewReportsBloc>().add(ShowAllReportsEvent());
               },
               child: ListView.separated(
-                  physics: BouncingScrollPhysics(),
-                  itemBuilder: ((context, index) {
-                    return Container(
-                      height: MediaQuery.of(context).size.height * 0.1,
-                      child: _buildExpanded(
-                          data: state.data['files'], index: index),
-                    );
-                  }),
-                  separatorBuilder: ((context, index) {
-                    return Divider();
-                  }),
-                  itemCount: state.data['count']),
+                physics: BouncingScrollPhysics(),
+                itemBuilder: ((context, index) {
+                  return SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.08,
+                    child: _buildExpanded(data: state.data['files'], index: index),
+                  );
+                }),
+                separatorBuilder: ((context, index) {
+                  return Divider();
+                }),
+                itemCount: state.data.containsKey('count') ? state.data['count'] : 0,
+              ),
             );
-          } else if (state is LoadingGetAllTemplatesState) {
+          } else if (state is LoadingGetAllReportsState) {
             return SizedBox(
               child: Shimmer.fromColors(
                 baseColor: Colors.grey,
@@ -87,17 +82,16 @@ class _DocumentScreenState extends State<DocumentScreen> {
               ),
             );
           }
-          ;
         }));
   }
 
   _buildExpanded({data, index}) {
     data;
     return Row(children: [
-      const Expanded(
+      Expanded(
         flex: 20,
         child: Icon(
-          Icons.feed_outlined,
+          (data[index]['type'] == 'Folder') ? Icons.feed_outlined : Icons.file_present,
           size: 35,
         ),
       ),
@@ -137,8 +131,7 @@ class _DocumentScreenState extends State<DocumentScreen> {
           child: Container(
             height: 20,
             width: 10,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20), color: Colors.grey),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: Colors.grey),
           )),
       Expanded(
         flex: 20,

@@ -5,12 +5,21 @@ import 'package:fastreport/data/repositories/apiRequests.dart';
 import 'package:fastreport/domain/repositories/docum/templates.dart';
 
 class TemplatesRepositoryImpl implements TemplatesRepository {
-  @override
-  getAllTemplates(id) async {
+
+  Future<Map<String, dynamic>> getCountTemplates(id) async {
     return await ApiRequest.getApiHelper(
       Dio(),
       {'': ''},
-      '/api/rp/v1/Templates/Folder/$id/ListFolderAndFiles?skip=0&take=99&orderBy=None&desc=false&searchPattern=',
+      '/api/rp/v1/Templates/Folder/$id/CountFolderAndFiles',
+    );
+  }
+
+  @override
+  getAllTemplates(id, take) async {
+    return await ApiRequest.getApiHelper(
+      Dio(),
+      {'': ''},
+      '/api/rp/v1/Templates/Folder/$id/ListFolderAndFiles?take=$take',
     );
   }
 

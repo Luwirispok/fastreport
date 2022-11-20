@@ -9,7 +9,7 @@ class AddTemplateBloc extends Bloc<AddTemplateEvent, AddTemplateState> {
   AddTemplateBloc() : super(AddTemplateInitial()) {
     on<AddTemplateEvent>((event, emit) {});
     on<ShowAlertEvent>((event, emit) async {
-      final id = await GetIdentRepositoryImp().getIdForFolder();
+      final id = await GetIdentRepositoryImp().getIdForFolder('Templates');
       Map<String, String> data =
           await FileImportAndExport().importFileToBase64().then((value) => {
                 'name': '${value!["name"]}',

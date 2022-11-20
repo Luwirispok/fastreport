@@ -6,53 +6,60 @@ import 'package:fastreport/presentation/BLoC/list_view_templates/list_view_templ
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class AlertDialogForTemplatesFourMethodsScreen extends StatelessWidget {
+class AlertDialogForTemplatesFourMethodsScreen extends StatefulWidget {
   final String id;
-  AlertDialogForTemplatesFourMethodsScreen({Key? key, required this.id})
-      : super(key: key);
 
+  AlertDialogForTemplatesFourMethodsScreen({Key? key, required this.id}) : super(key: key);
+
+  @override
+  State<AlertDialogForTemplatesFourMethodsScreen> createState() => _AlertDialogForTemplatesFourMethodsScreenState();
+}
+
+class _AlertDialogForTemplatesFourMethodsScreenState extends State<AlertDialogForTemplatesFourMethodsScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AddTemplateBloc, AddTemplateState>(
       builder: (context, state) {
         return AlertDialog(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          content: Container(
-              width: 70,
-              height: 250,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Divider(),
-                  _buildDownloadMethod(
-                    context,
-                    id,
-                  ),
-                  Divider(),
-                  _buildExportMethod(
-                    context,
-                    id,
-                  ),
-                  Divider(),
-                  _buildRenameMethod(
-                    context,
-                    id,
-                  ),
-                  Divider(),
-                  _buildDeleteMEthod(
-                    context,
-                    id,
-                  )
-                ],
-              )),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          content: AnimatedContainer(
+            duration: Duration(milliseconds: 200),
+            height: expandMenu ? 350 : 250,
+            width: 70,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Divider(),
+                _buildDownloadMethod(
+                  context,
+                  widget.id,
+                ),
+                Divider(),
+                _buildExportMethod(
+                  context,
+                  widget.id,
+                ),
+                Divider(),
+                _buildRenameMethod(
+                  context,
+                  widget.id,
+                ),
+                Divider(),
+                _buildDeleteMEthod(
+                  context,
+                  widget.id,
+                )
+              ],
+            ),
+          ),
           title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
                 'Выбор метода',
                 style: TextStyle(color: Colors.blue, fontSize: 25),
               ),
+              // const SizedBox(width: 15),
               IconButton(
                   onPressed: () {
                     Navigator.of(context).pop();
@@ -102,25 +109,66 @@ class AlertDialogForTemplatesFourMethodsScreen extends StatelessWidget {
     );
   }
 
+  bool expandMenu = false;
+  TextEditingController textEditingController = TextEditingController();
+
+//   () async {
   _buildRenameMethod(context, id) {
-    return InkWell(
-      onTap: () async {
-        print(id);
-        final answer =
-            await TemplatesRepositoryImpl().updateTemplate(id, 'SuckDickMan');
-      },
-      child: Row(
+    return AnimatedSize(
+      duration: Duration(milliseconds: 200),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Переименовать',
-            style: TextStyle(
-              fontSize: 20,
-              color: Colors.black,
+          InkWell(
+            onTap: () {
+              setState(() {
+                expandMenu = !expandMenu;
+              });
+            },
+            child: SizedBox(
+              width: 250,
+              child: Text(
+                expandMenu ? 'Введите название (без .frx)' : 'Переименовать',
+                textAlign: TextAlign.start,
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.black,
+                ),
+              ),
             ),
-          )
+          ),
+          SizedBox(height: expandMenu ? 10 : 0),
+          expandMenu
+              ? TextField(
+                  controller: textEditingController,
+                  decoration: InputDecoration(border: OutlineInputBorder()),
+                )
+              : const SizedBox(),
+          SizedBox(height: expandMenu ? 10 : 0),
+          expandMenu
+              ? Center(
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      print(id);
+                      final answer =
+                          await TemplatesRepositoryImpl().updateTemplate(id, textEditingController.value.text);
+                      FocusScope.of(context).unfocus();
+                      updatingListOfFilesAndFolders();
+                    },
+                    child: const Text('Переименовать'),
+                  ),
+                )
+              : const SizedBox(),
         ],
       ),
     );
+  }
+
+  void updatingListOfFilesAndFolders() {
+    context.read<ListViewTemplatesBloc>().add(LoadingGetAllTemplatesEvent());
+    context.read<ListViewTemplatesBloc>().add(ShowAllTemplatesEvent());
+    Navigator.of(context).pop();
   }
 
   _buildDeleteMEthod(context, id) {
@@ -129,11 +177,7 @@ class AlertDialogForTemplatesFourMethodsScreen extends StatelessWidget {
         return InkWell(
           onTap: () async {
             final answer = await TemplatesRepositoryImpl().deleteTemplate(id);
-            context
-                .read<ListViewTemplatesBloc>()
-                .add(LoadingGetAllTemplatesEvent());
-            context.read<ListViewTemplatesBloc>().add(ShowAllTemplatesEvent());
-            Navigator.of(context).pop();
+            updatingListOfFilesAndFolders();
           },
           child: Row(
             children: [

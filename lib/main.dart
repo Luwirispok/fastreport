@@ -4,9 +4,10 @@ import 'dart:io';
 
 import 'package:fastreport/data/repositories/docum/templates.dart';
 import 'package:fastreport/domain/repositories/getFolderRepositoryId/getFolderRepositoryId.dart';
+import 'package:fastreport/presentation/BLoC/list_view_exports/list_view_exports_bloc.dart';
+import 'package:fastreport/presentation/BLoC/list_view_reports/list_view_reports_bloc.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:fastreport/presentation/BLoC/main_file/main_files_bloc.dart';
 import 'package:fastreport/presentation/main_screen/main_screen.dart';
 import 'package:flutter/material.dart';
@@ -38,6 +39,12 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<ListViewTemplatesBloc>(
           create: (context) => ListViewTemplatesBloc(),
+        ),
+        BlocProvider<ListViewReportsBloc>(
+          create: (context) => ListViewReportsBloc(),
+        ),
+        BlocProvider<ListViewExportsBloc>(
+          create: (context) => ListViewExportsBloc(),
         ),
       ],
       child: MaterialApp(
@@ -71,23 +78,23 @@ class MyApp extends StatelessWidget {
     }
   }
 
-  Future<String> getFilePath() async {
-    Directory appDocumentsDirectory = await getApplicationDocumentsDirectory();
-    // String appDocumentsPath = '${appDocumentsDirectory.path}/folder';
-    String appDocumentsPath = _catalog;
-    String filePath = '$appDocumentsPath/text.txt';
-    await Directory(appDocumentsPath).create(recursive: true);
-    log(appDocumentsDirectory.absolute.toString());
-    log(appDocumentsPath);
-    return filePath;
-  }
-
-  void saveFile() async {
-    File file = File(await getFilePath());
-    log(file.path);
-    file.writeAsString(
-        "This is my demo text that will be saved to : demoTextFile.txt");
-  }
+  // Future<String> getFilePath() async {
+  //   Directory appDocumentsDirectory = await getApplicationDocumentsDirectory();
+  //   // String appDocumentsPath = '${appDocumentsDirectory.path}/folder';
+  //   String appDocumentsPath = _catalog;
+  //   String filePath = '$appDocumentsPath/text.txt';
+  //   await Directory(appDocumentsPath).create(recursive: true);
+  //   log(appDocumentsDirectory.absolute.toString());
+  //   log(appDocumentsPath);
+  //   return filePath;
+  // }
+  //
+  // void saveFile() async {
+  //   File file = File(await getFilePath());
+  //   log(file.path);
+  //   file.writeAsString(
+  //       "This is my demo text that will be saved to : demoTextFile.txt");
+  // }
 }
 
 // class MyHomePage extends StatefulWidget {
