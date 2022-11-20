@@ -1,0 +1,74 @@
+
+
+class AlertDialogScreen extends StatelessWidget {
+  const AlertDialogScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    dynamic datas;
+    _onSelectionChanged(DateRangePickerSelectionChangedArgs args) {
+      datas = args.value;
+    }
+
+    return AlertDialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      content: Container(
+        width: 500,
+        height: 450,
+        child: SfDateRangePicker(
+          monthViewSettings: const DateRangePickerMonthViewSettings(
+            firstDayOfWeek: 1,
+          ),
+          view: DateRangePickerView.month,
+          onSelectionChanged: _onSelectionChanged,
+          selectionMode: DateRangePickerSelectionMode.single,
+          showNavigationArrow: true,
+        ),
+      ),
+      title: const Center(
+          child: TextW(
+        text: 'Выберите дату заезда ',
+        color: AppColor.blue,
+        size: 30,
+      )),
+      actions: [
+        /// Row Buttons
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: TextW(
+                  text: 'Отмена',
+                  size: 20,
+                )),
+            BlocBuilder<CalendarCheckinBloc, CalendarCheckinState>(
+              builder: (context, state) {
+                return TextButton(
+                    //Choose Checkout data from calendar
+                    onPressed: () {
+                      if (datas != null) {
+                        context
+                            .read<CalendarCheckinBloc>()
+                            .add(CheckIOutEvent(datas));
+                        Navigator.pop(context);
+                      }
+                    },
+                    child: TextW(
+                      text: 'Выбрать',
+                      size: 20,
+                    ));
+              },
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 20,
+        ),
+      ],
+    );
+  }
+}

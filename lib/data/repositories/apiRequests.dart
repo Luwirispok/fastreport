@@ -17,6 +17,7 @@ class ApiRequest {
     header['Content-Type'] = 'application/json';
     header['Accept'] = 'application/json';
     body = data;
+
     Response<dynamic>? response;
     try {
       response = await dio.post("$_rootPath$path",
@@ -35,11 +36,10 @@ class ApiRequest {
         return error;
       } else if (response.statusCode == 200) {
         ///Ок
-        dynamic resultD = jsonDecode(response.data.toString());
+        dynamic resultD = response.data;
         // Map<String, dynamic> resultM = resultD as Map<String, dynamic>;
         Map<String, dynamic> resultM = Map<String, dynamic>();
-        resultM['data'] = resultD;
-        return resultM;
+        return resultD;
       } else if (response.statusCode == 422) {
         ///Заезд невозможен
         error['message'] = "Заезд невозможен";
@@ -82,6 +82,8 @@ class ApiRequest {
         error['message'] = "Не авторизован";
         return error;
       } else if (response.statusCode == 200) {
+        print(response);
+
         ///Ок
         dynamic resultD = response.data;
         // Map<String, dynamic> resultM = resultD as Map<String, dynamic>;
