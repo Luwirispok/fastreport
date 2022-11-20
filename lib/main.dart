@@ -4,6 +4,8 @@ import 'dart:io';
 
 import 'package:fastreport/data/repositories/docum/templates.dart';
 import 'package:fastreport/domain/repositories/getFolderRepositoryId/getFolderRepositoryId.dart';
+import 'package:fastreport/presentation/BLoC/bloc/show_settings_for_groups_bloc.dart';
+import 'package:fastreport/presentation/BLoC/groups/groups_bloc.dart';
 
 import 'package:fastreport/presentation/BLoC/list_view_data/list_view_data_bloc.dart';
 
@@ -53,6 +55,12 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<ListViewDataBloc>(
           create: (context) => ListViewDataBloc(),
+        ),
+        BlocProvider<GroupsBloc>(
+          create: (context) => GroupsBloc(),
+        ),
+        BlocProvider<ShowSettingsForGroupsBloc>(
+          create: (context) => ShowSettingsForGroupsBloc(),
         ),
       ],
       child: MaterialApp(

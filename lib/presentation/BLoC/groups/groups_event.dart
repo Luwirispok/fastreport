@@ -13,7 +13,7 @@ class AddNewUserEvent extends GroupsEvent {
   //PUT
 }
 
-class GetAllUSerGroupEvent extends GroupsEvent {
+class ShowAllUSerGroupEvent extends GroupsEvent {
   //GET
 }
 

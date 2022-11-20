@@ -17,6 +17,41 @@ class GetGroupRepositoryIdentificatorImpl
   }
 }
 
+class GetAllGroupsImpl implements GetAllGroups {
+  @override
+  getAllGroup(id) async {
+    return await ApiRequest.getApiHelper(
+      Dio(),
+      {'': ''},
+      '/api/manage/v1/Subscriptions/$id/groups',
+    );
+  }
+}
+
+///DELETE
+class GroupRepositoryDeleteGroupImpl {
+  deleteGroup(
+    id,
+  ) async {
+    return await ApiRequest.deleteApiHelper(
+        dio: Dio(), path: '/api/manage/v1/Groups/$id');
+  }
+}
+
+///RENAME
+class GroupRepositoryRenameGroupImpl {
+  renameGroup(
+    id,
+    name,
+  ) async {
+    return await ApiRequest.putApiHelper(
+      dio: Dio(),
+      data: {"name": "$name"},
+      path: '/api​/manage​/v1​/Groups​/$id​/rename',
+    );
+  }
+}
+
 class GroupRepositoryAddGroupImpl implements GroupRepositoryAddGroup {
   addgroup(
     id,
