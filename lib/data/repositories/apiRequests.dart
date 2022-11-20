@@ -63,7 +63,6 @@ class ApiRequest {
     const token =
         'YXBpa2V5OnR4ZnNxNG10cWl0N2M5c3pkeDdkZng0OG5rb3o4anNyMzdxdDYxb2djbTR3eXVqM2tja28=';
 
-    error['message'] = "Неизвестная ошибка";
     header['Authorization'] = 'Basic $token';
     header['Content-Type'] = 'application/json';
     header['Accept'] = 'application/json';

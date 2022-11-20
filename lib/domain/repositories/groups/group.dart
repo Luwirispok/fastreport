@@ -11,7 +11,10 @@ abstract class GroupRepositoryAddGroup {
     data,
   ) {}
 }
+abstract class GetAllGroups {
 
+  getAllGroup(String id);
+}
 abstract class AddNewUSerRepository {
   addNewUSer() {}
 }

@@ -12,8 +12,17 @@ class GroupsBloc extends Bloc<GroupsEvent, GroupsState> {
 
       // emit(AddNewGroupsState());
     });
+    on<ShowAllUSerGroupEvent>((event, emit) async {
+      Map<String, dynamic> data =
+          await GetAllGroupsImpl().getAllGroup('6377865f5f620ebfce9a07ce');
+      emit(ShowAllUSerGroupState(data));
+    });
+
     on<LoadingGetAllGroupsEvent>((event, emit) {
-      // emit(LoadingGetAllApiKeysState());
+      emit(LoadingGetAllGroupsState());
+    });
+    on<AddNewUserEvent>((event, emit) {
+      AddNewUserState({});
     });
   }
   var count;

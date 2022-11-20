@@ -15,9 +15,9 @@ class AddNewUserState extends GroupsState {
   //PUT
 }
 
-class GetAllUSerGroupState extends GroupsState {
+class ShowAllUSerGroupState extends GroupsState {
   Map data = Map();
-  GetAllUSerGroupState(this.data);
+  ShowAllUSerGroupState(this.data);
   //GET
 }
 
