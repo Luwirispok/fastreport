@@ -1,5 +1,8 @@
 import 'package:bloc/bloc.dart';
+import 'package:fastreport/data/repositories/docum/templates.dart';
 import 'package:meta/meta.dart';
+
+import '../../../domain/repositories/getFolderRepositoryId/getFolderRepositoryId.dart';
 
 part 'list_view_templates_event.dart';
 part 'list_view_templates_state.dart';
@@ -10,11 +13,14 @@ class ListViewTemplatesBloc
     on<ListViewTemplatesEvent>((event, emit) {
       // TODO: implement event handler
     });
-    on<ShowAllTemplatesEvent>((event, emit) {
-      // TODO: implement event handler
+    on<ShowAllTemplatesEvent>((event, emit) async {
+      final id = await GetIdentRepositoryImp().getIdForFolder();
+      final data = await TemplatesRepositoryImpl().getAllTemplates(id['id']);
+      print(data);
+      emit(ShowAllTemplatesState());
     });
     on<LoadingGetAllTemplatesEvent>((event, emit) {
-      // TODO: implement event handler
+      emit(LoadingGetAllTemplatesState());
     });
   }
 }
