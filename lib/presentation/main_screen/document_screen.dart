@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:fastreport/presentation/BLoC/list_view_templates/list_view_templates_bloc.dart';
 import 'package:fastreport/presentation/main_screen/alert_dialog.dart';
+import 'package:fastreport/presentation/main_screen/alert_dialog_for_templates_four_,methods.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
@@ -15,7 +16,7 @@ class DocumentScreen extends StatefulWidget {
 class _DocumentScreenState extends State<DocumentScreen> {
   @override
   void initState() {
-    // TODO: implement initState
+    context.read<ListViewTemplatesBloc>().add(ShowAllTemplatesEvent());
     super.initState();
   }
 
@@ -32,17 +33,44 @@ class _DocumentScreenState extends State<DocumentScreen> {
         body: BlocBuilder<ListViewTemplatesBloc, ListViewTemplatesState>(
             builder: (context, state) {
           if (state is ShowAllTemplatesState) {
-            return ListView.separated(
-                itemBuilder: ((context, index) {
-                  return Container(
-                    height: MediaQuery.of(context).size.height * 0.1,
-                    child: _buildExpanded('Отсосать у самого себя'),
-                  );
-                }),
-                separatorBuilder: ((context, index) {
-                  return Divider();
-                }),
-                itemCount: 100);
+            return RefreshIndicator(
+              onRefresh: () async {
+                context
+                    .read<ListViewTemplatesBloc>()
+                    .add(LoadingGetAllTemplatesEvent());
+                context
+                    .read<ListViewTemplatesBloc>()
+                    .add(ShowAllTemplatesEvent());
+              },
+              child: ListView.separated(
+                  physics: BouncingScrollPhysics(),
+                  itemBuilder: ((context, index) {
+                    return Container(
+                      height: MediaQuery.of(context).size.height * 0.1,
+                      child: _buildExpanded(
+                          data: state.data['files'], index: index),
+                    );
+                  }),
+                  separatorBuilder: ((context, index) {
+                    return Divider();
+                  }),
+                  itemCount: state.data['count']),
+            );
+          } else if (state is LoadingGetAllTemplatesState) {
+            return SizedBox(
+              child: Shimmer.fromColors(
+                baseColor: Colors.grey,
+                highlightColor: Colors.white,
+                child: ListView.builder(
+                    itemCount: 10,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Container(
+                        height: MediaQuery.of(context).size.height * 0.1,
+                        child: _buildExpandedShimmer(),
+                      );
+                    }),
+              ),
+            );
           } else {
             return SizedBox(
               child: Shimmer.fromColors(
@@ -58,13 +86,13 @@ class _DocumentScreenState extends State<DocumentScreen> {
                     }),
               ),
             );
-            ;
           }
           ;
         }));
   }
 
-  _buildExpanded(name) {
+  _buildExpanded({data, index}) {
+    data;
     return Row(children: [
       const Expanded(
         flex: 20,
@@ -76,14 +104,16 @@ class _DocumentScreenState extends State<DocumentScreen> {
       Expanded(
         flex: 60,
         child: Text(
-          name,
+          data[index]['name'],
           style: TextStyle(fontSize: 20),
         ),
       ),
       Expanded(
         flex: 20,
         child: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            _getFourAlertMethods(context, data[index]['id']);
+          },
           icon: const Icon(
             Icons.more_horiz_outlined,
             size: 35,
@@ -99,7 +129,7 @@ class _DocumentScreenState extends State<DocumentScreen> {
         flex: 20,
         child: Icon(
           Icons.circle_rounded,
-          size: 35,
+          size: 45,
         ),
       ),
       Expanded(
@@ -112,12 +142,9 @@ class _DocumentScreenState extends State<DocumentScreen> {
           )),
       Expanded(
         flex: 20,
-        child: IconButton(
-          onPressed: () {},
-          icon: const Icon(
-            Icons.more_horiz_outlined,
-            size: 35,
-          ),
+        child: Icon(
+          Icons.more_horiz_outlined,
+          size: 35,
         ),
       ),
     ]);
@@ -127,7 +154,18 @@ class _DocumentScreenState extends State<DocumentScreen> {
     return showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialogScreen();
+        return AlertDialogForTemplatesAddTaskScreen();
+      },
+    );
+  }
+
+  Future _getFourAlertMethods(BuildContext context, String id) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialogForTemplatesFourMethodsScreen(
+          id: id,
+        );
       },
     );
   }
