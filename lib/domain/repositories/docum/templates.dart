@@ -10,10 +10,10 @@ abstract class TemplatesRepository {
   createTemplate(String id, String name, String base64) {}
   readTemplate() {}
   updateTemplate(String fileId, String name) {}
-  deleteTemplate() {}
+  deleteTemplate(String id) {}
   readyTemplateReport() {}
   exportTemplate() {}
-  downloadTEmplate() {}
+  downloadTemplate() {}
 }
 
 abstract class GetIdentRepository {

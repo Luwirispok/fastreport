@@ -26,18 +26,27 @@ class TemplatesRepositoryImpl implements TemplatesRepository {
 
   @override
   updateTemplate(
-    String fileId,
+    String id,
     String name,
   ) async {
-    await ApiRequest.postApiHelper(
-      Dio(),
-      {"name": "$name.frx"},
-      '/api/rp/v1/Templates/File/$fileId/Rename',
+    await ApiRequest.putApiHelper(
+      dio: Dio(),
+      path: '/api/rp/v1/Templates/File/$id/Rename',
+      data: {"name": "$name.frx"},
     );
   }
 
-  deleteTemplate() {}
-  readyTemplateReport() {}
+  @override
+  deleteTemplate(
+    String id,
+  ) async {
+    await ApiRequest.deleteApiHelper(
+      dio: Dio(),
+      path: '/api/rp/v1/Templates/File/$id/ToBin',
+    );
+  }
+
   exportTemplate() {}
-  downloadTEmplate() {}
+  downloadTemplate() {}
+  readyTemplateReport() {}
 }

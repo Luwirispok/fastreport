@@ -16,8 +16,8 @@ class ListViewTemplatesBloc
     on<ShowAllTemplatesEvent>((event, emit) async {
       final id = await GetIdentRepositoryImp().getIdForFolder();
       final data = await TemplatesRepositoryImpl().getAllTemplates(id['id']);
-      print(data);
-      emit(ShowAllTemplatesState());
+
+      emit(ShowAllTemplatesState(data));
     });
     on<LoadingGetAllTemplatesEvent>((event, emit) {
       emit(LoadingGetAllTemplatesState());
