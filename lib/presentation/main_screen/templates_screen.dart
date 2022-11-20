@@ -1,7 +1,8 @@
 import 'dart:async';
+import 'package:fastreport/data/repositories/docum/templates.dart';
 import 'package:fastreport/presentation/BLoC/list_view_templates/list_view_templates_bloc.dart';
 import 'package:fastreport/presentation/custom_widgets/alert_dialog.dart';
-import 'package:fastreport/presentation/main_screen/alert_dialog_for_templates_four_,methods.dart';
+import 'package:fastreport/presentation/custom_widgets/alert_dialog_document/alert_dialog_for_templates_four_methods.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
@@ -81,7 +82,6 @@ class _TemplatesScreenState extends State<TemplatesScreen> {
               ),
             );
           }
-
         }));
   }
 
@@ -91,7 +91,7 @@ class _TemplatesScreenState extends State<TemplatesScreen> {
       Expanded(
         flex: 20,
         child: Icon(
-            (data[index]['type'] == 'Folder') ? Icons.feed_outlined : Icons.file_present,
+          (data[index]['type'] == 'Folder') ? Icons.feed_outlined : Icons.file_present,
           size: 35,
         ),
       ),
@@ -158,6 +158,17 @@ class _TemplatesScreenState extends State<TemplatesScreen> {
       builder: (BuildContext context) {
         return AlertDialogForTemplatesFourMethodsScreen(
           id: id,
+          onChanged: () {
+            context.read<ListViewTemplatesBloc>().add(LoadingGetAllTemplatesEvent());
+            context.read<ListViewTemplatesBloc>().add(ShowAllTemplatesEvent());
+            Navigator.of(context).pop();
+          },
+          funcRename: (text) async {
+            return await TemplatesRepositoryImpl().updateTemplate(id, text);
+          },
+          funcDelete: () async {
+            return await TemplatesRepositoryImpl().deleteTemplate(id);
+          },
         );
       },
     );

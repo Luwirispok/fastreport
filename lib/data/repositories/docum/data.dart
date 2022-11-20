@@ -21,7 +21,7 @@ class DataRepositoryImpl {
       Dio(),
       {
         'subscription id': id,
-        'take': 19,
+        'take': 120,
       },
       '/api/data/v1/DataSources',
     );

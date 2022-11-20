@@ -64,7 +64,7 @@ class _MainScreenState extends State<MainScreen> {
                     children: [
                       ListTileW(
                         text: 'Шаблоны',
-                        icon: Icons.dock,
+                        icon: Icons.document_scanner_sharp,
                         onTap: () {
                           setState(() {
                             title = 'Шаблоны';
@@ -76,7 +76,7 @@ class _MainScreenState extends State<MainScreen> {
                       ),
                       ListTileW(
                         text: 'Отчеты',
-                        icon: Icons.dock,
+                        icon: Icons.restore_page_outlined,
                         onTap: () {
                           setState(() {
                             title = 'Отчеты';
@@ -88,7 +88,7 @@ class _MainScreenState extends State<MainScreen> {
                       ),
                       ListTileW(
                         text: 'Экспорты',
-                        icon: Icons.dock,
+                        icon: Icons.import_export,
                         onTap: () {
                           setState(() {
                             title = 'Экспорты';
@@ -103,7 +103,7 @@ class _MainScreenState extends State<MainScreen> {
                 ),
                 ListTileW(
                   text: 'Данные',
-                  icon: Icons.dock,
+                  icon: Icons.data_object,
                   onTap: () {
                     setState(() {
                       title = 'Данные';
@@ -114,7 +114,7 @@ class _MainScreenState extends State<MainScreen> {
                 ),
                 ListTileW(
                   text: 'Группы',
-                  icon: Icons.dock,
+                  icon: Icons.group,
                   onTap: () {
                     setState(() {
                       title = 'Группы';
@@ -125,7 +125,7 @@ class _MainScreenState extends State<MainScreen> {
                 ),
                 ListTileW(
                   text: 'Пользователи',
-                  icon: Icons.dock,
+                  icon: Icons.supervised_user_circle_sharp,
                   onTap: () {
                     setState(() {
                       title = 'Пользователи';
@@ -136,7 +136,7 @@ class _MainScreenState extends State<MainScreen> {
                 ),
                 ListTileW(
                   text: 'Api ключи',
-                  icon: Icons.dock,
+                  icon: Icons.key,
                   onTap: () {
                     setState(() {
                       title = 'Api ключи';
@@ -147,7 +147,7 @@ class _MainScreenState extends State<MainScreen> {
                 ),
                 ListTileW(
                   text: 'О продукте',
-                  icon: Icons.dock,
+                  icon: Icons.info_outline,
                   onTap: () {
                     setState(() {
                       title = 'О продукте';

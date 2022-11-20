@@ -69,6 +69,7 @@ class ApiRequest {
     header['Accept'] = 'application/json';
 
     Response<dynamic>? response;
+    log(data.toString());
     try {
       response = await dio.get("$_rootPath$path",
           options: Options(headers: header), queryParameters: data);

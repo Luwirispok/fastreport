@@ -1,7 +1,8 @@
 import 'dart:async';
+import 'package:fastreport/data/repositories/docum/reports.dart';
 import 'package:fastreport/presentation/BLoC/list_view_reports/list_view_reports_bloc.dart';
 import 'package:fastreport/presentation/custom_widgets/alert_dialog.dart';
-import 'package:fastreport/presentation/main_screen/alert_dialog_for_templates_four_,methods.dart';
+import 'package:fastreport/presentation/custom_widgets/alert_dialog_document/alert_dialog_for_templates_four_methods.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
@@ -158,6 +159,17 @@ class _ReportsScreenState extends State<ReportsScreen> {
       builder: (BuildContext context) {
         return AlertDialogForTemplatesFourMethodsScreen(
           id: id,
+          onChanged: () {
+            context.read<ListViewReportsBloc>().add(LoadingGetAllReportsEvent());
+            context.read<ListViewReportsBloc>().add(ShowAllReportsEvent());
+            Navigator.of(context).pop();
+          },
+          funcRename: (String text) async {
+            return await ReportsRepositoryImpl().updateReport(id, text);
+          },
+          funcDelete: () async {
+            return await ReportsRepositoryImpl().deleteReport(id);
+          },
         );
       },
     );

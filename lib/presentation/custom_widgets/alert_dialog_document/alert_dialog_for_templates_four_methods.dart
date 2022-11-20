@@ -8,8 +8,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AlertDialogForTemplatesFourMethodsScreen extends StatefulWidget {
   final String id;
+  final Function onChanged;
+  final Function(String text) funcRename;
+  final Function funcDelete;
 
-  AlertDialogForTemplatesFourMethodsScreen({Key? key, required this.id}) : super(key: key);
+  AlertDialogForTemplatesFourMethodsScreen({
+    Key? key,
+    required this.id,
+    required this.onChanged,
+    required this.funcRename,
+    required this.funcDelete,
+  }) : super(key: key);
 
   @override
   State<AlertDialogForTemplatesFourMethodsScreen> createState() => _AlertDialogForTemplatesFourMethodsScreenState();
@@ -26,30 +35,32 @@ class _AlertDialogForTemplatesFourMethodsScreenState extends State<AlertDialogFo
             duration: Duration(milliseconds: 200),
             height: expandMenu ? 350 : 250,
             width: 70,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Divider(),
-                _buildDownloadMethod(
-                  context,
-                  widget.id,
-                ),
-                Divider(),
-                _buildExportMethod(
-                  context,
-                  widget.id,
-                ),
-                Divider(),
-                _buildRenameMethod(
-                  context,
-                  widget.id,
-                ),
-                Divider(),
-                _buildDeleteMEthod(
-                  context,
-                  widget.id,
-                )
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Divider(),
+                  _buildDownloadMethod(
+                    context,
+                    widget.id,
+                  ),
+                  Divider(),
+                  _buildExportMethod(
+                    context,
+                    widget.id,
+                  ),
+                  Divider(),
+                  _buildRenameMethod(
+                    context,
+                    widget.id,
+                  ),
+                  Divider(),
+                  _buildDeleteMEthod(
+                    context,
+                    widget.id,
+                  )
+                ],
+              ),
             ),
           ),
           title: Row(
@@ -152,9 +163,9 @@ class _AlertDialogForTemplatesFourMethodsScreenState extends State<AlertDialogFo
                     onPressed: () async {
                       print(id);
                       final answer =
-                          await TemplatesRepositoryImpl().updateTemplate(id, textEditingController.value.text);
+                          widget.funcRename(textEditingController.value.text);
                       FocusScope.of(context).unfocus();
-                      updatingListOfFilesAndFolders();
+                      widget.onChanged();
                     },
                     child: const Text('Переименовать'),
                   ),
@@ -176,8 +187,8 @@ class _AlertDialogForTemplatesFourMethodsScreenState extends State<AlertDialogFo
       builder: (context, state) {
         return InkWell(
           onTap: () async {
-            final answer = await TemplatesRepositoryImpl().deleteTemplate(id);
-            updatingListOfFilesAndFolders();
+            final answer = widget.funcDelete();
+            widget.onChanged();
           },
           child: Row(
             children: [

@@ -16,6 +16,7 @@ class ExportsRepositoryImpl implements ExportsRepository {
 
   @override
   getAllExports(id, take) async {
+    take = int.parse(take) > 120 ? '120' : take;
     return await ApiRequest.getApiHelper(
       Dio(),
       {'': ''},

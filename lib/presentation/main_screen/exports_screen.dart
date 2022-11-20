@@ -1,7 +1,8 @@
 import 'dart:async';
+import 'package:fastreport/data/repositories/docum/exports.dart';
 import 'package:fastreport/presentation/BLoC/list_view_exports/list_view_exports_bloc.dart';
 import 'package:fastreport/presentation/custom_widgets/alert_dialog.dart';
-import 'package:fastreport/presentation/main_screen/alert_dialog_for_templates_four_,methods.dart';
+import 'package:fastreport/presentation/custom_widgets/alert_dialog_document/alert_dialog_for_templates_four_methods.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
@@ -158,6 +159,17 @@ class _ExportsScreenState extends State<ExportsScreen> {
       builder: (BuildContext context) {
         return AlertDialogForTemplatesFourMethodsScreen(
           id: id,
+          onChanged: () {
+            context.read<ListViewExportsBloc>().add(LoadingGetAllExportsEvent());
+            context.read<ListViewExportsBloc>().add(ShowAllExportsEvent());
+            Navigator.of(context).pop();
+          },
+          funcRename: (String text) async {
+            return await ExportsRepositoryImpl().updateExport(id, text);
+          },
+          funcDelete: () async {
+            return await ExportsRepositoryImpl().deleteExport(id);
+          },
         );
       },
     );

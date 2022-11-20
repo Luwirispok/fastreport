@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:fastreport/presentation/BLoC/groups/groups_bloc.dart';
 import 'package:fastreport/presentation/BLoC/list_view_exports/list_view_exports_bloc.dart';
-import 'package:fastreport/presentation/main_screen/alert_dialog.dart';
-import 'package:fastreport/presentation/main_screen/alert_dialog_for_templates_four_,methods.dart';
+// import 'package:fastreport/presentation/main_screen/alert_dialog.dart';
+import 'package:fastreport/presentation/custom_widgets/alert_dialog_document/alert_dialog_for_templates_four_methods.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
@@ -166,7 +166,8 @@ class _GroupScreennState extends State<GroupScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialogForTemplatesFourMethodsScreen(
-          id: id,
+          id: id, onChanged: () {}, funcRename: (String text) {  }, funcDelete: () {},
+
         );
       },
     );
