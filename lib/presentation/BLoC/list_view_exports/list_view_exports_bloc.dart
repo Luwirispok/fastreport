@@ -9,14 +9,17 @@ part 'list_view_exports_state.dart';
 
 class ListViewExportsBloc
     extends Bloc<ListViewExportsEvent, ListViewExportsState> {
-  ListViewExportsBloc() : super(ListViewExportsInitial()) {
+  ListViewExportsBloc() : super(LoadingGetAllExportsState()) {
     on<ListViewExportsEvent>((event, emit) {
       // TODO: implement event handler
     });
     on<ShowAllExportsEvent>((event, emit) async {
       final id = await GetIdentRepositoryImp().getIdForFolder('Exports');
-      await ExportsRepositoryImpl().getCountExports(id['id']).then((value) => countSet(value));
-      final data = await ExportsRepositoryImpl().getAllExports(id['id'], "${count['count']}");
+      await ExportsRepositoryImpl()
+          .getCountExports(id['id'])
+          .then((value) => countSet(value));
+      final data = await ExportsRepositoryImpl()
+          .getAllExports(id['id'], "${count['count']}");
 
       emit(ShowAllExportsState(data));
     });
