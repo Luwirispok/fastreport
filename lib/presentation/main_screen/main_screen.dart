@@ -1,5 +1,5 @@
+import 'package:fastreport/presentation/BLoC/main_file/main_files_bloc.dart';
 import 'package:fastreport/presentation/custom_widgets/list_tile.dart';
-import 'package:fastreport/presentation/main_file_bloc/main_files_bloc.dart';
 import 'package:fastreport/presentation/main_screen/about_products_screen.dart';
 import 'package:fastreport/presentation/main_screen/api_keys_screen.dart';
 import 'package:fastreport/presentation/main_screen/data_screen.dart';
@@ -8,8 +8,6 @@ import 'package:fastreport/presentation/main_screen/group_screen.dart';
 import 'package:fastreport/presentation/main_screen/users_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../documents/templates.dart';
 
 class MainScreen extends StatefulWidget {
   MainScreen({Key? key}) : super(key: key);

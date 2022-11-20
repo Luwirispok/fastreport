@@ -1,11 +1,10 @@
-import 'package:fastreport/data/repositories/docum/templates.dart';
-import 'package:fastreport/domain/repositories/getFolderRepositoryId/getFolderRepositoryId.dart';
-import 'package:fastreport/presentation/add_template/add_template_bloc.dart';
-
-import 'package:fastreport/presentation/main_file_bloc/main_files_bloc.dart';
+import 'package:fastreport/presentation/BLoC/main_file/main_files_bloc.dart';
 import 'package:fastreport/presentation/main_screen/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'presentation/BLoC/add_template/add_template_bloc.dart';
+import 'presentation/BLoC/list_view_templates/list_view_templates_bloc.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,6 +22,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<AddTemplateBloc>(
           create: (context) => AddTemplateBloc(),
+        ),
+        BlocProvider<ListViewTemplatesBloc>(
+          create: (context) => ListViewTemplatesBloc(),
         ),
       ],
       child: MaterialApp(

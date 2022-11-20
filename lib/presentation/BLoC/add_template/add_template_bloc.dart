@@ -1,10 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:fastreport/core/FileImportAndExport.dart';
-import 'package:fastreport/data/repositories/docum/templates.dart';
-import 'package:meta/meta.dart';
-
-import '../../domain/repositories/getFolderRepositoryId/getFolderRepositoryId.dart';
-
+import 'package:fastreport/domain/repositories/getFolderRepositoryId/getFolderRepositoryId.dart';
+import 'package:flutter/material.dart';
 part 'add_template_event.dart';
 part 'add_template_state.dart';
 
