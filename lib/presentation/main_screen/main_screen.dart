@@ -22,7 +22,6 @@ class _MainScreenState extends State<MainScreen> {
   String title = 'Шаблоны';
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,17 +35,40 @@ class _MainScreenState extends State<MainScreen> {
             child: ListView(
               padding: EdgeInsets.zero,
               children: <Widget>[
-                const DrawerHeader(
+                DrawerHeader(
                   decoration: BoxDecoration(
                     color: Colors.blue,
                   ),
-                  child: Text(
-                    'FastReport Cloud',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                    ),
-                  ),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Text(
+                          'FastReport Cloud',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 24,
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            CircleAvatar(
+                              child: Icon(Icons.person),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              'Escanor',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                              ),
+                            ),
+                          ],
+                        )
+                      ]),
                 ),
                 const Padding(
                   padding: EdgeInsets.only(left: 12),
@@ -71,7 +93,6 @@ class _MainScreenState extends State<MainScreen> {
                           });
                           _scaffoldKey.currentState?.openEndDrawer();
                           context.read<MainFilesBloc>().add(TemplatesEvent());
-
                         },
                       ),
                       ListTileW(
@@ -83,7 +104,6 @@ class _MainScreenState extends State<MainScreen> {
                           });
                           _scaffoldKey.currentState?.openEndDrawer();
                           context.read<MainFilesBloc>().add(ReportsEvent());
-
                         },
                       ),
                       ListTileW(
@@ -95,7 +115,6 @@ class _MainScreenState extends State<MainScreen> {
                           });
                           _scaffoldKey.currentState?.openEndDrawer();
                           context.read<MainFilesBloc>().add(ExportsEvent());
-
                         },
                       ),
                     ],
@@ -161,7 +180,8 @@ class _MainScreenState extends State<MainScreen> {
           );
         },
       ),
-      body: BlocBuilder<MainFilesBloc, MainFilesState>(builder: (context, state) {
+      body:
+          BlocBuilder<MainFilesBloc, MainFilesState>(builder: (context, state) {
         if (state is TemplatesState) {
           return TemplatesScreen();
         } else if (state is ReportsState) {
