@@ -11,6 +11,7 @@ import 'package:fastreport/presentation/BLoC/list_view_api_keys/list_view_api_ke
 
 import 'package:fastreport/presentation/BLoC/list_view_exports/list_view_exports_bloc.dart';
 import 'package:fastreport/presentation/BLoC/list_view_reports/list_view_reports_bloc.dart';
+import 'package:fastreport/presentation/main_screen/start_screen.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:fastreport/presentation/BLoC/main_file/main_files_bloc.dart';
@@ -24,10 +25,6 @@ import 'presentation/BLoC/list_view_templates/list_view_templates_bloc.dart';
 void main() {
   runApp(const MyApp());
 }
-
-var _file;
-var _fileBase64;
-var _catalog;
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -60,34 +57,35 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         routes: {
-          '/': (context) => MainScreen(),
+          '/': (context) => StartScreen(),
+          '/main': (context) => MainScreen(),
         },
         initialRoute: '/',
       ),
     );
   }
 
-  Future<void> _buildCatalog() async {
-    String? selectedDirectory = await FilePicker.platform.getDirectoryPath();
-
-    if (selectedDirectory == null) {
-      // User canceled the picker
-    } else {
-      log(selectedDirectory.toString());
-      _catalog = selectedDirectory;
-    }
-  }
-
-  Future<void> _buildSave() async {
-    String? outputFile = await FilePicker.platform.saveFile(
-      dialogTitle: 'Please select an output file:',
-      fileName: 'lib/data/repositories/docum/templates.dart',
-    );
-
-    if (outputFile == null) {
-      // User canceled the picker
-    }
-  }
+  // Future<void> _buildCatalog() async {
+  //   String? selectedDirectory = await FilePicker.platform.getDirectoryPath();
+  //
+  //   if (selectedDirectory == null) {
+  //     // User canceled the picker
+  //   } else {
+  //     log(selectedDirectory.toString());
+  //     _catalog = selectedDirectory;
+  //   }
+  // }
+  //
+  // Future<void> _buildSave() async {
+  //   String? outputFile = await FilePicker.platform.saveFile(
+  //     dialogTitle: 'Please select an output file:',
+  //     fileName: 'lib/data/repositories/docum/templates.dart',
+  //   );
+  //
+  //   if (outputFile == null) {
+  //     // User canceled the picker
+  //   }
+  // }
 
   // Future<String> getFilePath() async {
   //   Directory appDocumentsDirectory = await getApplicationDocumentsDirectory();

@@ -123,17 +123,17 @@ class _MainScreenState extends State<MainScreen> {
                     context.read<MainFilesBloc>().add(GroupsEvent());
                   },
                 ),
-                ListTileW(
-                  text: 'Пользователи',
-                  icon: Icons.supervised_user_circle_sharp,
-                  onTap: () {
-                    setState(() {
-                      title = 'Пользователи';
-                    });
-                    _scaffoldKey.currentState?.openEndDrawer();
-                    context.read<MainFilesBloc>().add(UsersEvent());
-                  },
-                ),
+                // ListTileW(
+                //   text: 'Пользователи',
+                //   icon: Icons.supervised_user_circle_sharp,
+                //   onTap: () {
+                //     setState(() {
+                //       title = 'Пользователи';
+                //     });
+                //     _scaffoldKey.currentState?.openEndDrawer();
+                //     context.read<MainFilesBloc>().add(UsersEvent());
+                //   },
+                // ),
                 ListTileW(
                   text: 'Api ключи',
                   icon: Icons.key,

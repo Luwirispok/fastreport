@@ -24,6 +24,7 @@ dependencies:
   path_provider: ^2.0.11
   shimmer: ^2.0.0
   webview_flutter: ^3.0.4
+  url_launcher: ^6.1.6
 
 dev_dependencies:
   flutter_test:
