@@ -69,8 +69,9 @@ class _MainScreenState extends State<MainScreen> {
                           setState(() {
                             title = 'Шаблоны';
                           });
-                          context.read<MainFilesBloc>().add(TemplatesEvent());
                           _scaffoldKey.currentState?.openEndDrawer();
+                          context.read<MainFilesBloc>().add(TemplatesEvent());
+
                         },
                       ),
                       ListTileW(
@@ -80,6 +81,7 @@ class _MainScreenState extends State<MainScreen> {
                           setState(() {
                             title = 'Отчеты';
                           });
+                          _scaffoldKey.currentState?.openEndDrawer();
                           context.read<MainFilesBloc>().add(ReportsEvent());
 
                         },
@@ -91,6 +93,7 @@ class _MainScreenState extends State<MainScreen> {
                           setState(() {
                             title = 'Экспорты';
                           });
+                          _scaffoldKey.currentState?.openEndDrawer();
                           context.read<MainFilesBloc>().add(ExportsEvent());
 
                         },
@@ -105,6 +108,7 @@ class _MainScreenState extends State<MainScreen> {
                     setState(() {
                       title = 'Данные';
                     });
+                    _scaffoldKey.currentState?.openEndDrawer();
                     context.read<MainFilesBloc>().add(DataEvent());
                   },
                 ),
@@ -115,6 +119,7 @@ class _MainScreenState extends State<MainScreen> {
                     setState(() {
                       title = 'Группы';
                     });
+                    _scaffoldKey.currentState?.openEndDrawer();
                     context.read<MainFilesBloc>().add(GroupsEvent());
                   },
                 ),
@@ -125,6 +130,7 @@ class _MainScreenState extends State<MainScreen> {
                     setState(() {
                       title = 'Пользователи';
                     });
+                    _scaffoldKey.currentState?.openEndDrawer();
                     context.read<MainFilesBloc>().add(UsersEvent());
                   },
                 ),
@@ -135,6 +141,7 @@ class _MainScreenState extends State<MainScreen> {
                     setState(() {
                       title = 'Api ключи';
                     });
+                    _scaffoldKey.currentState?.openEndDrawer();
                     context.read<MainFilesBloc>().add(ApiKeysEvent());
                   },
                 ),
@@ -145,6 +152,7 @@ class _MainScreenState extends State<MainScreen> {
                     setState(() {
                       title = 'О продукте';
                     });
+                    _scaffoldKey.currentState?.openEndDrawer();
                     context.read<MainFilesBloc>().add(AboutProductEvent());
                   },
                 ),
@@ -154,7 +162,6 @@ class _MainScreenState extends State<MainScreen> {
         },
       ),
       body: BlocBuilder<MainFilesBloc, MainFilesState>(builder: (context, state) {
-        _scaffoldKey.currentState?.openEndDrawer();
         if (state is TemplatesState) {
           return TemplatesScreen();
         } else if (state is ReportsState) {

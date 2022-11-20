@@ -4,7 +4,11 @@ import 'dart:io';
 
 import 'package:fastreport/data/repositories/docum/templates.dart';
 import 'package:fastreport/domain/repositories/getFolderRepositoryId/getFolderRepositoryId.dart';
+
 import 'package:fastreport/presentation/BLoC/list_view_data/list_view_data_bloc.dart';
+
+import 'package:fastreport/presentation/BLoC/list_view_api_keys/list_view_api_keys_bloc.dart';
+
 import 'package:fastreport/presentation/BLoC/list_view_exports/list_view_exports_bloc.dart';
 import 'package:fastreport/presentation/BLoC/list_view_reports/list_view_reports_bloc.dart';
 import 'package:file_picker/file_picker.dart';
@@ -37,6 +41,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<AddTemplateBloc>(
           create: (context) => AddTemplateBloc(),
+        ),
+        BlocProvider<ListViewApiKeysBloc>(
+          create: (context) => ListViewApiKeysBloc(),
         ),
         BlocProvider<ListViewTemplatesBloc>(
           create: (context) => ListViewTemplatesBloc(),
