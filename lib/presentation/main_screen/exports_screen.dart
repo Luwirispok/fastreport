@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:fastreport/presentation/BLoC/list_view_exports/list_view_exports_bloc.dart';
-import 'package:fastreport/presentation/main_screen/alert_dialog.dart';
+import 'package:fastreport/presentation/custom_widgets/alert_dialog.dart';
 import 'package:fastreport/presentation/main_screen/alert_dialog_for_templates_four_,methods.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

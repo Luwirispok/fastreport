@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:fastreport/data/repositories/docum/templates.dart';
 import 'package:fastreport/domain/repositories/getFolderRepositoryId/getFolderRepositoryId.dart';
+import 'package:fastreport/presentation/BLoC/list_view_data/list_view_data_bloc.dart';
 import 'package:fastreport/presentation/BLoC/list_view_exports/list_view_exports_bloc.dart';
 import 'package:fastreport/presentation/BLoC/list_view_reports/list_view_reports_bloc.dart';
 import 'package:file_picker/file_picker.dart';
@@ -45,6 +46,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<ListViewExportsBloc>(
           create: (context) => ListViewExportsBloc(),
+        ),
+        BlocProvider<ListViewDataBloc>(
+          create: (context) => ListViewDataBloc(),
         ),
       ],
       child: MaterialApp(
